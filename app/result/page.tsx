@@ -56,7 +56,7 @@ export default function ResultPage() {
         </div>
 
         {/* User info card */}
-        {(result.userName || result.role) && (
+        {(result.user || result.role) && (
           <div className="w-full rounded-2xl bg-white/5 border border-white/10 divide-y divide-white/10">
             {result.user && (
               <div className="flex items-center justify-between px-5 py-4">
