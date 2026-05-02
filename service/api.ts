@@ -3,7 +3,7 @@ import {
   VerifyAccessResponse,
 } from "@/types/access";
 
-const BASE_URL =  process.env.VERIFICATION_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_VERIFICATION_URL;
 
 export const verifyAccess = async (
   payload: VerifyAccessRequest

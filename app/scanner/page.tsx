@@ -18,10 +18,9 @@ function ScannerContent() {
 
     try {
       const result = await verifyAccess({
-        token,
-        doorId,
-        deviceId: "SCANNER_WEB_01",
-        timestamp: new Date().toISOString(),
+        uid: token,           // the raw text decoded from the QR code
+        readerId: "READER-001",
+        door: doorId,
       });
 
       localStorage.setItem("accessResult", JSON.stringify(result));

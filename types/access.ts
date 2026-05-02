@@ -1,8 +1,7 @@
 export interface VerifyAccessRequest {
-  token: string;
-  doorId: string;
-  deviceId: string;
-  timestamp: string;
+  uid: string;
+  readerId: string;
+  door: string;
 }
 
 export interface VerifyAccessResponse {
