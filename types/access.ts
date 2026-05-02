@@ -5,8 +5,8 @@ export interface VerifyAccessRequest {
 }
 
 export interface VerifyAccessResponse {
-  isGranted: boolean;
+  status: "granted" | "denied" | "error";
   message: string;
-  userName: string;
+  user: string;
   role: string;
 }

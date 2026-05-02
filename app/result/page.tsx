@@ -24,7 +24,7 @@ export default function ResultPage() {
     );
   }
 
-  const granted = result.isGranted;
+  const granted = result.status === "granted";
 
   return (
     <main className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center px-6">
@@ -58,10 +58,10 @@ export default function ResultPage() {
         {/* User info card */}
         {(result.userName || result.role) && (
           <div className="w-full rounded-2xl bg-white/5 border border-white/10 divide-y divide-white/10">
-            {result.userName && (
+            {result.user && (
               <div className="flex items-center justify-between px-5 py-4">
                 <span className="text-gray-400 text-sm">Name</span>
-                <span className="text-white font-medium text-sm">{result.userName}</span>
+                <span className="text-white font-medium text-sm">{result.user}</span>
               </div>
             )}
             {result.role && (

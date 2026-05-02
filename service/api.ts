@@ -9,7 +9,7 @@ export const verifyAccess = async (
   payload: VerifyAccessRequest
 ): Promise<VerifyAccessResponse> => {
   const response = await fetch(
-    `${BASE_URL}/access-control/verify`,
+    `${BASE_URL}/access/tap`,
     {
       method: "POST",
       headers: {
