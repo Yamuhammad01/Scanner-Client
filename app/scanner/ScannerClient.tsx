@@ -7,9 +7,10 @@ import { verifyAccess } from "@/service/api";
 
 interface ScannerClientProps {
   doorId: string;
+  doorName: string;
 }
 
-export default function ScannerClient({ doorId }: ScannerClientProps) {
+export default function ScannerClient({ doorId, doorName }: ScannerClientProps) {
   const router = useRouter();
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -20,14 +21,19 @@ export default function ScannerClient({ doorId }: ScannerClientProps) {
     try {
       const result = await verifyAccess({
         uid: token,           // the raw text decoded from the QR code
-        readerId: "READER-001",
-        door: doorId,
+        readerId: doorId,     // readerId is the ID selected (e.g. MAIN_GATE_01)
+        door: doorName,       // door is the name selected (e.g. Main Gate)
       });
 
       localStorage.setItem("accessResult", JSON.stringify(result));
       router.push("/result");
     } catch (error) {
       console.error("Verification error:", error);
+      if (error instanceof TypeError && error.message === "Load failed") {
+        alert("Network Error: Could not reach the server at " + process.env.NEXT_PUBLIC_VERIFICATION_URL + ". Please ensure the backend is running and CORS is enabled.");
+      } else {
+        alert("Scan failed: " + (error instanceof Error ? error.message : "Unknown error"));
+      }
       // Reset so user can try again
       setIsProcessing(false);
     }
@@ -46,9 +52,9 @@ export default function ScannerClient({ doorId }: ScannerClientProps) {
           </div>
           <h1 className="text-xl font-bold tracking-tight">QR Access Scanner</h1>
         </div>
-        {doorId && (
+        {doorName && (
           <p className="text-sm text-gray-400 ml-12">
-            Door: <span className="text-gray-200 font-medium">{doorId.replace(/_/g, " ")}</span>
+            Access Point: <span className="text-gray-200 font-medium">{doorName}</span>
           </p>
         )}
       </header>

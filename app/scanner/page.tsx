@@ -10,6 +10,7 @@ export default async function ScannerPage({
 }) {
   const resolvedSearchParams = await searchParams;
   const doorId = typeof resolvedSearchParams.doorId === "string" ? resolvedSearchParams.doorId : "";
+  const doorName = typeof resolvedSearchParams.doorName === "string" ? resolvedSearchParams.doorName : "";
 
   return (
     <Suspense
@@ -19,7 +20,7 @@ export default async function ScannerPage({
         </main>
       }
     >
-      <ScannerClient doorId={doorId} />
+      <ScannerClient doorId={doorId} doorName={doorName} />
     </Suspense>
   );
 }

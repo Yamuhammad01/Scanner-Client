@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import DoorSelector from "@/components/DoorSelector";
+import DoorSelector, { doors } from "@/components/DoorSelector";
 
 export default function HomePage() {
   const [selectedDoor, setSelectedDoor] = useState("");
@@ -10,7 +10,9 @@ export default function HomePage() {
 
   const proceedToScanner = () => {
     if (!selectedDoor) return;
-    router.push(`/scanner?doorId=${selectedDoor}`);
+    const door = doors.find(d => d.id === selectedDoor);
+    const doorName = door ? door.name : "";
+    router.push(`/scanner?doorId=${selectedDoor}&doorName=${encodeURIComponent(doorName)}`);
   };
 
   return (
