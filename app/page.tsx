@@ -4,7 +4,7 @@ import { NavBar } from '@/components/NavBar';
 import { LeftPanel } from '@/components/LeftPanel';
 import { AuthCard } from '@/components/AuthCard';
 import { DoorSelectModal } from '@/components/DoorSelectModal';
-import { QRScanner } from '@/components/QRScanner';
+import QRScanner from '@/components/QRScanner';
 import { useAuthFlow } from '@/lib/useAuthFlow';
 import { motion, AnimatePresence } from 'framer-motion';
 

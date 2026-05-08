@@ -6,12 +6,17 @@ import { Camera, RefreshCcw, X, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface QRScannerProps {
-  onScan: (data: string) => void;
-  onCancel: () => void;
-  doorName: string;
+  onScan?: (data: string) => void;
+  onScanSuccess?: (data: string) => void;
+  onCancel?: () => void;
+  doorName?: string;
 }
 
-export const QRScanner = ({ onScan, onCancel, doorName }: QRScannerProps) => {
+const QRScanner = ({ onScan, onScanSuccess, onCancel, doorName }: QRScannerProps) => {
+  const handleScan = useCallback((data: string) => {
+    if (onScan) onScan(data);
+    if (onScanSuccess) onScanSuccess(data);
+  }, [onScan, onScanSuccess]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [error, setError] = useState<string | null>(null);
@@ -54,7 +59,7 @@ export const QRScanner = ({ onScan, onCancel, doorName }: QRScannerProps) => {
         });
         
         if (code) {
-          onScan(code.data);
+          handleScan(code.data);
           return; // Stop ticking if found
         }
       }
@@ -137,7 +142,7 @@ export const QRScanner = ({ onScan, onCancel, doorName }: QRScannerProps) => {
           </div>
           <button 
             disabled={!manualInput}
-            onClick={() => onScan(manualInput)}
+            onClick={() => handleScan(manualInput)}
             className="px-6 py-3 bg-primary/20 text-primary border border-primary/30 rounded-xl font-bold hover:bg-primary/30 transition-all disabled:opacity-50"
           >
             Submit
@@ -147,3 +152,5 @@ export const QRScanner = ({ onScan, onCancel, doorName }: QRScannerProps) => {
     </div>
   );
 };
+
+export default QRScanner;

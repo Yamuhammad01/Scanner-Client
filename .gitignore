@@ -12,7 +12,7 @@
 
 # testing
 /coverage
-
+scanner_web_ui.md
 # next.js
 /.next/
 /out/
