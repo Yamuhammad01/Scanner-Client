@@ -43,9 +43,10 @@ const QRScanner = ({ onScan, onScanSuccess, onCancel, doorName }: QRScannerProps
   }, []);
 
   const tick = useCallback(() => {
-    if (videoRef.current?.readyState === videoRef.current?.HAVE_ENOUGH_DATA && canvasRef.current) {
-      const canvas = canvasRef.current;
-      const video = videoRef.current;
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+
+    if (video && video.readyState === video.HAVE_ENOUGH_DATA && canvas) {
       const context = canvas.getContext('2d', { willReadFrequently: true });
       
       if (context) {
